@@ -44,7 +44,7 @@ private:
     void setCell(QAxObject *_pworksheet, int _row, int _col, QString _value);
 
     QString getFullLang(langId _lang);
-    langId getSmallLang(QString _lang);
+    langId getAbbrLang(QString _lang);
 private:
     QString m_curPath = ""; //当前加载的excel路径
     QSet<wordId> m_setWordId;

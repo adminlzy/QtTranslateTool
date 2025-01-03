@@ -46,6 +46,8 @@ private:
 
     clsXmlOpt* getXmlOpt();
     clsExcelOpt* getExcelOpt();
+
+    void createbtn(int);
 private:
     Ui::MainWindow *ui;
     clsExcelOpt* m_pexcel = nullptr;

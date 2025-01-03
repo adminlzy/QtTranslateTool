@@ -46,9 +46,13 @@ DESTDIR = $$PWD/../bin
 
 CONFIG(debug, debug|release){
     TARGET = langImportd
+    DESTDIR = $$PWD/../bin/debug
 }
 else{
     TARGET = langImport
+    QMAKE_CXXFLAGS_RELEASE = -Od -ZI -MD
+    QMAKE_LFLAGS_RELEASE = /DEBUG
+    DESTDIR = $$PWD/../bin/release
 }
 
 VERSION = 0.0.1.0

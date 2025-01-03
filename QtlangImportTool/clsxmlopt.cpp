@@ -85,6 +85,11 @@ void clsXmlOpt::thrImportExcelData(int _key, QString _file, QMap<wordId, trans> 
                 qDebug()<<"translation != subnode.toElement().tagName()";
                 continue;
             }
+            QString typeAttr = subnode.toElement().attribute("type");
+            qDebug() << "Attribute value:" << typeAttr;
+            if("vanished" == typeAttr){
+                continue;
+            }
 #if 1//覆盖
             if(!m_replace){
                 if(!subnode.toElement().text().isEmpty())
@@ -143,7 +148,7 @@ void clsXmlOpt::loadTs(int _key, const QString &_file)
     m_mapEmptyWordData.clear();
     qDebug()<<"clsXmlOpt::loadTs _file:"<<_file;
     QFileInfo ts(_file);
-    QString lang = ts.baseName().right(2);
+    QString lang = ts.baseName().right(2).toUpper();
     m_setLangs.insert(lang);
     QFile file(_file);
     if (!file.open(QFileDevice::ReadOnly)) {

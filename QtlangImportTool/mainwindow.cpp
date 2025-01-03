@@ -9,6 +9,7 @@
 #include <QGridLayout>
 #include "formprogressbar.h"
 #include <QThread>
+#include <QPushButton>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -157,11 +158,49 @@ void MainWindow::on_pushButton_loadexcel_clicked()
 {
     readExcel();
 }
+#include <string>
+#include <iostream>
+
+struct leakMem{
+    std::string m_str1 = "1231321321313132132132131313132131";
+    std::string m_str2 = "1231321321313132132132131313132131";
+    std::string m_str3 = "1231321321313132132132131313132131";
+    std::string m_str4 = "1231321321313132132132131313132131";
+    std::string m_str5 = "1231321321313132132132131313132131";
+    std::string m_str6 = "1231321321313132132132131313132131";
+    std::string m_str7 = "1231321321313132132132131313132131";
+    std::string m_str11 = "1231321321313132132132131313132131";
+    std::string m_str21 = "1231321321313132132132131313132131";
+    std::string m_str31 = "1231321321313132132132131313132131";
+    std::string m_str41 = "1231321321313132132132131313132131";
+    std::string m_str51 = "1231321321313132132132131313132131";
+    std::string m_str61 = "1231321321313132132132131313132131";
+    std::string m_str71 = "1231321321313132132132131313132131";
+    std::string m_str12 = "1231321321313132132132131313132131";
+    std::string m_str22 = "1231321321313132132132131313132131";
+    std::string m_str32 = "1231321321313132132132131313132131";
+    std::string m_str42 = "1231321321313132132132131313132131";
+    std::string m_str52 = "1231321321313132132132131313132131";
+    std::string m_str62 = "1231321321313132132132131313132131";
+    std::string m_str72 = "1231321321313132132132131313132131";
+};
+
+void MainWindow::createbtn(int _num){
+//    QVector<leakMem*> vec;
+//    for(int i = 0; i < _num; i++){
+//        vec.push_back(new leakMem);
+//    }
+    const int STR_SIZE = 1024;
+    char * pStr = new char [STR_SIZE];
+    strcpy_s(pStr, STR_SIZE, "Memory Leak Sample");
+    std::cout << pStr << std::endl;
+}
 
 void MainWindow::on_pushButton_selectTsfile_clicked()
 {
+//    createbtn(100);
     m_lststrPath.clear();
-
+#if 1
     QFileDialog dialog(this);
     dialog.setFileMode(QFileDialog::AnyFile);
     dialog.setNameFilter(tr("Images (*.ts)"));
@@ -183,7 +222,7 @@ void MainWindow::on_pushButton_selectTsfile_clicked()
 
     //读取ts
     loadTs();
-
+#endif
 }
 
 void MainWindow::on_btn_excelts_clicked()

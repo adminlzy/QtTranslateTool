@@ -89,7 +89,7 @@ void clsExcelOpt::readExcel(QString _path)
             break;
         }
 
-        lang = getSmallLang(lang);
+        lang = getAbbrLang(lang);
         if(lang.isEmpty()){
             continue;
         }
@@ -126,6 +126,7 @@ void clsExcelOpt::readExcel(QString _path)
 
 QMap<wordId, trans> clsExcelOpt::getExcelData(langId _key)
 {
+    _key = _key.toUpper();
     auto itor = m_mapExcelData.find(_key);
     if(itor == m_mapExcelData.end())
     {
@@ -276,6 +277,7 @@ void clsExcelOpt::slot_fillExcel(QString _path)
 
     //补充新语言
     for(langId lang : m_tsLangs){
+        qDebug()<<"clsExcelOpt::slot_fillExcel lang:"<<lang;
         auto itor = m_ExcelLangs.find(lang);
         if(itor != m_ExcelLangs.end()){
             continue;
@@ -298,16 +300,13 @@ void clsExcelOpt::slot_fillExcel(QString _path)
         for(int j = 2; j <= intCol; j++){
             trans srcTrans = getCell(pworksheet, i, j);
 #if 1 //覆盖
-            if(!m_replace){
-                if(!srcTrans.isEmpty()){//excel中翻译为空的单元格
-                    continue;
-                }
+            if(!m_replace && !srcTrans.isEmpty()){
+                continue; //不替换excel中已有的翻译
             }
-
 #endif
-            qDebug()<<"not have trans:"<<srcWord;
+
             QString langHead = getCell(pworksheet, 1, j);
-            langHead = getSmallLang(langHead);
+            langHead = getAbbrLang(langHead);
             if(langHead.isEmpty()){
                 continue;
             }
@@ -319,6 +318,7 @@ void clsExcelOpt::slot_fillExcel(QString _path)
 
             QString transTs = itor.value();
             if(transTs.isEmpty()){
+                qDebug()<<"not have trans:"<<srcWord;
                 continue;
             }
             qDebug().noquote()<<" transTs:"<<transTs;
@@ -371,6 +371,7 @@ void clsExcelOpt::setCell(QAxObject *_pworksheet, int _row, int _col, QString _v
 
 QString clsExcelOpt::getFullLang(langId _lang)
 {
+    _lang = _lang.toUpper();
     if("EN" == _lang){
         return "English";
     }
@@ -401,7 +402,7 @@ QString clsExcelOpt::getFullLang(langId _lang)
     return "";
 }
 
-langId clsExcelOpt::getSmallLang(QString _lang){
+langId clsExcelOpt::getAbbrLang(QString _lang){
     if("English" == _lang){
         return "EN";
     }
