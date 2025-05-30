@@ -76,6 +76,11 @@ void clsXmlOpt::thrImportExcelData(int _key, QString _file, QMap<wordId, trans> 
         }
 
         QString result = itor.value();
+//        QDomElement translation = element.firstChildElement("translation");
+//        if(!translation.isNull()){
+//            translation.attribute("type");
+//        }
+
         QDomNodeList sublist = element.childNodes();
         for(int j = 0; j < sublist.count(); j++)
         {
@@ -104,8 +109,12 @@ void clsXmlOpt::thrImportExcelData(int _key, QString _file, QMap<wordId, trans> 
             if(!result.isEmpty())
             {
                 translation.appendChild(doc.createTextNode(result));
-                element.replaceChild(translation, subnode);
+
             }
+            else{
+                translation.appendChild(doc.createTextNode(" "));
+            }
+            element.replaceChild(translation, subnode);
         }
 
     }

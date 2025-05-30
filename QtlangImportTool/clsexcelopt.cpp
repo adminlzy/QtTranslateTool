@@ -201,6 +201,8 @@ void clsExcelOpt::createNoTransFile(QString _path, int _totalPro)
     delete workbooks;
     delete excel;
 }
+#include <QFileDialog>
+
 void clsExcelOpt::slot_fillExcel(QString _path)
 {
     if(_path.isEmpty()){
@@ -238,7 +240,8 @@ void clsExcelOpt::slot_fillExcel(QString _path)
     }
 
     //todo 将没翻译的词条写到excel中
-    QString workbookPath = QDir::currentPath() + "/noTransWord.xlsx";
+    QString workbookPath = QFileDialog::getSaveFileName(nullptr, tr("Save Text"), "/","Text Files (*.xlsx)");
+//    QString workbookPath = QDir::currentPath() + "/noTransWord.xlsx";
     createNoTransFile(workbookPath, 50);
 
 
