@@ -16,6 +16,7 @@ public:
 
     int addWordData(const QString& _file, const QMap<wordId, trans>& _mapExcelData);
     int addLoadTsTask(const QString& _file);
+    void clearTsData();
     int newKey()
     {
         return m_iKey++;

@@ -13,6 +13,7 @@
 clsExcelOpt::clsExcelOpt(QObject *parent) : QObject(parent)
 {
     connect(this, &clsExcelOpt::signal_readExcel, this, &clsExcelOpt::slot_readExcel, Qt::QueuedConnection);
+    connect(this, &clsExcelOpt::signal_clearData, this, &clsExcelOpt::slot_clearData, Qt::QueuedConnection);
     connect(this, &clsExcelOpt::signal_fillExcel, this, &clsExcelOpt::slot_fillExcel, Qt::QueuedConnection);
     QThread* pthr = new QThread(this);
     pthr->start();
@@ -36,6 +37,19 @@ void clsExcelOpt::slot_readExcel(QString _path)
 {
     qDebug()<<"clsExcelOpt::slot_readExcel into";
     readExcel(_path);
+}
+
+void clsExcelOpt::clearData()
+{
+    emit signal_clearData();
+}
+
+void clsExcelOpt::slot_clearData()
+{
+    m_curPath.clear();
+    m_mapExcelData.clear();
+    m_setWordId.clear();
+    m_ExcelLangs.clear();
 }
 
 void clsExcelOpt::readExcel(QString _path)
@@ -77,7 +91,7 @@ void clsExcelOpt::readExcel(QString _path)
         m_setWordId.insert(srcWord);
         vecRowKey.push_back(srcWord);
 
-        int iprocess = (100*(intRow + i))/(intRow * intCol);
+        int iprocess = (100 * i) / (intRow * intCol);
         emit signalReadProcess(iprocess, false);
     }
 
@@ -111,7 +125,7 @@ void clsExcelOpt::readExcel(QString _path)
                 mapCol[vecRowKey[i - 2]] = value;
             }
 
-            int iprocess = (100*(intRow*j + i))/(intRow * intCol);
+            int iprocess = (100 * (intRow * (j - 1) + i)) / (intRow * intCol);
             emit signalReadProcess(iprocess, false);
         }
 
@@ -135,12 +149,12 @@ QMap<wordId, trans> clsExcelOpt::getExcelData(langId _key)
     return itor.value();
 }
 
-void clsExcelOpt::addTsData(const QMap<wordId, QMap<langId, trans>>& tsData, QMap<wordId, QMap<langId, trans>>& tsEmptyData, QSet<langId>& _langs)
+void clsExcelOpt::addTsData(const QMap<wordId, QMap<langId, trans>>& tsData, QMap<wordId, QMap<langId, trans>>& tsEmptyData, QSet<langId>& _langs, const QString& _savePath)
 {
     m_tsData = tsData;
     m_tsEmptyData = tsEmptyData;
     m_tsLangs = _langs;
-    emit signal_fillExcel(m_curPath);
+    emit signal_fillExcel(m_curPath, _savePath);
 }
 void clsExcelOpt::createNoTransFile(QString _path, int _totalPro)
 {
@@ -201,9 +215,9 @@ void clsExcelOpt::createNoTransFile(QString _path, int _totalPro)
     delete workbooks;
     delete excel;
 }
-#include <QFileDialog>
 
-void clsExcelOpt::slot_fillExcel(QString _path)
+
+void clsExcelOpt::slot_fillExcel(QString _path, QString _savePath)
 {
     if(_path.isEmpty()){
         return;
@@ -240,9 +254,10 @@ void clsExcelOpt::slot_fillExcel(QString _path)
     }
 
     //todo 将没翻译的词条写到excel中
-    QString workbookPath = QFileDialog::getSaveFileName(nullptr, tr("Save Text"), "/","Text Files (*.xlsx)");
-//    QString workbookPath = QDir::currentPath() + "/noTransWord.xlsx";
-    createNoTransFile(workbookPath, 50);
+    if(_savePath.isEmpty()){
+        return;
+    }
+    createNoTransFile(_savePath, 50);
 
 
     //todo 将完整的ts写到 excel中

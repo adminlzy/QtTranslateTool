@@ -16,10 +16,11 @@ public:
     explicit clsExcelOpt(QObject *parent = nullptr);
 
     void readCurSheet(const QString& _path);
+    void clearData();
 
     QMap<wordId, trans> getExcelData(langId _key);
 
-    void addTsData(const QMap<wordId, QMap<langId, trans>>&, QMap<wordId, QMap<langId, trans>>&, QSet<langId> &_langs);
+    void addTsData(const QMap<wordId, QMap<langId, trans>>&, QMap<wordId, QMap<langId, trans>>&, QSet<langId> &_langs, const QString& _savePath);
     QString getCurPath();
 
     void setReplace(bool _replace){
@@ -28,11 +29,13 @@ public:
 signals:
     void signalReadProcess(int _process, bool _finish);
     void signal_readExcel(QString _path);
+    void signal_clearData();
 
-    void signal_fillExcel(QString _path);
+    void signal_fillExcel(QString _path, QString _savePath);
 private slots:
     void slot_readExcel(QString _path);
-    void slot_fillExcel(QString _path);
+    void slot_clearData();
+    void slot_fillExcel(QString _path, QString _savePath);
 private:
     void readExcel(QString _path);
 

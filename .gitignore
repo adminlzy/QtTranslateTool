@@ -1,0 +1,31 @@
+# 构建产物
+build-*/
+bin/
+binmingw/
+debug/
+release/
+
+# Qt Creator 本机配置
+*.pro.user
+*.pro.user.*
+
+# 编译中间文件
+*.o
+*.obj
+*.pdb
+*.ilk
+*.exe
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+Makefile*
+*.ts.user
+
+# IDE / 工具本地数据
+.arts/
+.codegraph/
+.codeartsdoer/
+
+# 系统文件
+Thumbs.db
+.DS_Store

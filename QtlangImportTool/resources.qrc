@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>style.qss</file>
+        <file>icons/app.svg</file>
+        <file>icons/check.svg</file>
+        <file>icons/chevron-down.svg</file>
+    </qresource>
+</RCC>

@@ -6,26 +6,117 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1160</width>
+    <height>700</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>1000</width>
+    <height>620</height>
+   </size>
+  </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Excel填充Ts</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout_5">
-    <item row="0" column="0">
+   <layout class="QHBoxLayout" name="mainLayout">
+    <property name="leftMargin">
+     <number>16</number>
+    </property>
+    <property name="topMargin">
+     <number>16</number>
+    </property>
+    <property name="rightMargin">
+     <number>16</number>
+    </property>
+    <property name="bottomMargin">
+     <number>16</number>
+    </property>
+    <property name="spacing">
+     <number>14</number>
+    </property>
+    <item>
      <widget class="QFrame" name="frame_3">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>3</horstretch>
+        <verstretch>1</verstretch>
+       </sizepolicy>
+      </property>
       <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
+       <enum>QFrame::NoFrame</enum>
       </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_4">
-       <item row="0" column="0">
-        <layout class="QHBoxLayout" name="horizontalLayout">
+      <layout class="QVBoxLayout" name="layout_input">
+       <property name="leftMargin">
+        <number>18</number>
+       </property>
+       <property name="topMargin">
+        <number>16</number>
+       </property>
+       <property name="rightMargin">
+        <number>18</number>
+       </property>
+       <property name="bottomMargin">
+        <number>16</number>
+       </property>
+       <property name="spacing">
+        <number>12</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="label_inputTitle">
+         <property name="role" stdset="0">
+          <string>sectionTitle</string>
+         </property>
+         <property name="text">
+          <string>输入文件</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_inputHint">
+         <property name="role" stdset="0">
+          <string>subtitle</string>
+         </property>
+         <property name="text">
+          <string>支持拖拽载入；TS 文件可一次选择多个</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="DropArea" name="dropArea">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>96</height>
+          </size>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layout_excelRow">
+         <property name="spacing">
+          <number>10</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="label_excel">
+           <property name="role" stdset="0">
+            <string>fieldLabel</string>
+           </property>
+           <property name="text">
+            <string>Excel 文件</string>
+           </property>
+          </widget>
+         </item>
          <item>
           <widget class="QWidget" name="widget_excel" native="true">
            <property name="sizePolicy">
@@ -34,29 +125,23 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>44</height>
+            </size>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="pushButton_loadexcel">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>50</height>
-            </size>
-           </property>
            <property name="text">
-            <string>选择excel文件</string>
+            <string>选择 Excel</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="pushButton_reload">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>50</height>
-            </size>
-           </property>
            <property name="text">
             <string>重新加载</string>
            </property>
@@ -64,28 +149,287 @@
          </item>
         </layout>
        </item>
+       <item>
+        <layout class="QHBoxLayout" name="layout_tsHeader">
+         <property name="spacing">
+          <number>10</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="label_ts">
+           <property name="role" stdset="0">
+            <string>fieldLabel</string>
+           </property>
+           <property name="text">
+            <string>TS 文件</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_ts">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_selectTsfile">
+           <property name="toolTip">
+            <string>可按住 Ctrl / Shift 一次选择多个 .ts 文件</string>
+           </property>
+           <property name="text">
+            <string>选择 TS 文件</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QScrollArea" name="scroll_ts">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>120</height>
+          </size>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>1</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="horizontalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="widget_ts">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </widget>
+       </item>
       </layout>
      </widget>
     </item>
-    <item row="1" column="0">
-     <widget class="QFrame" name="frame_2">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
+    <item>
+     <layout class="QVBoxLayout" name="layout_rightColumn">
+      <property name="spacing">
+       <number>18</number>
       </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_3">
-       <item row="0" column="0">
-        <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QFrame" name="frame_profile">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <layout class="QVBoxLayout" name="layout_profile">
+         <property name="leftMargin">
+          <number>20</number>
+         </property>
+         <property name="topMargin">
+          <number>20</number>
+         </property>
+         <property name="rightMargin">
+          <number>20</number>
+         </property>
+         <property name="bottomMargin">
+          <number>20</number>
+         </property>
+         <property name="spacing">
+          <number>14</number>
+         </property>
          <item>
-          <widget class="QPushButton" name="pushButton_selectTsfile">
+          <widget class="QLabel" name="label_profileTitle">
+           <property name="role" stdset="0">
+            <string>sectionTitle</string>
+           </property>
+           <property name="text">
+            <string>匹配项</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_profileHint">
+           <property name="role" stdset="0">
+            <string>subtitle</string>
+           </property>
+           <property name="text">
+            <string>保存常用的 Excel 与 TS 组合，下次一键加载</string>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="combo_profile">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>36</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>选择匹配项后自动加载其 Excel 与 TS 文件</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="layout_profileButtons">
+           <property name="spacing">
+            <number>12</number>
+           </property>
+           <item>
+            <widget class="QPushButton" name="btn_saveProfile">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="toolTip">
+              <string>把当前 Excel 与 TS 选择保存为一个匹配项</string>
+             </property>
+             <property name="text">
+              <string>保存当前匹配项</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_deleteProfile">
+             <property name="toolTip">
+              <string>删除下拉框中选中的匹配项</string>
+             </property>
+             <property name="text">
+              <string>删除匹配项</string>
+             </property>
+             <property name="variant" stdset="0">
+              <string>danger</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QFrame" name="frame">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+         <layout class="QVBoxLayout" name="layout_actions">
+         <property name="leftMargin">
+          <number>20</number>
+         </property>
+         <property name="topMargin">
+          <number>20</number>
+         </property>
+         <property name="rightMargin">
+          <number>20</number>
+         </property>
+         <property name="bottomMargin">
+          <number>20</number>
+         </property>
+         <property name="spacing">
+          <number>16</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="label_actionTitle">
+           <property name="role" stdset="0">
+            <string>sectionTitle</string>
+           </property>
+           <property name="text">
+            <string>转换操作</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_actionHint">
+           <property name="role" stdset="0">
+            <string>subtitle</string>
+           </property>
+           <property name="text">
+            <string>按需选择转换方向，勾选可覆盖已有内容</string>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="layout_excelTsHeader">
+           <property name="spacing">
+            <number>10</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label_actionExcelTs">
+             <property name="role" stdset="0">
+              <string>fieldLabel</string>
+             </property>
+             <property name="text">
+              <string>Excel → TS</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_excelTs">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBox_excelts">
+             <property name="toolTip">
+              <string>勾选后会覆盖目标 TS 中已有的译文</string>
+             </property>
+             <property name="text">
+              <string>覆盖已有译文</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btn_excelts">
            <property name="minimumSize">
             <size>
              <width>0</width>
@@ -93,130 +437,117 @@
             </size>
            </property>
            <property name="text">
-            <string>选择ts文件(可选多个)</string>
+            <string>填充 TS 文件</string>
+           </property>
+           <property name="variant" stdset="0">
+            <string>primary</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QWidget" name="widget_ts" native="true">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QFrame" name="frame">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>50</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="0">
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
-          <widget class="QCheckBox" name="checkBox_excelts">
-           <property name="text">
-            <string>覆盖</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btn_excelts">
+          <widget class="QFrame" name="line_divider">
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>40</height>
+             <height>1</height>
             </size>
            </property>
-           <property name="text">
-            <string>excel-&gt;ts</string>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>1</height>
+            </size>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
            </property>
           </widget>
          </item>
-        </layout>
-       </item>
-       <item row="0" column="1">
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>487</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="2">
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
-          <widget class="QCheckBox" name="checkBox_tsexcel">
-           <property name="text">
-            <string>覆盖</string>
+          <layout class="QHBoxLayout" name="layout_tsExcelHeader">
+           <property name="spacing">
+            <number>10</number>
            </property>
-          </widget>
+           <item>
+            <widget class="QLabel" name="label_actionTsExcel">
+             <property name="role" stdset="0">
+              <string>fieldLabel</string>
+             </property>
+             <property name="text">
+              <string>TS → Excel</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_tsExcel">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBox_tsexcel">
+             <property name="toolTip">
+              <string>勾选后会覆盖导出 Excel 中已有的条目</string>
+             </property>
+             <property name="text">
+              <string>覆盖已有条目</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
          <item>
           <widget class="QPushButton" name="btn_tsexcel">
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>40</height>
+             <height>50</height>
             </size>
            </property>
            <property name="text">
-            <string>ts-&gt;excel</string>
+            <string>导出 Excel</string>
+           </property>
+           <property name="variant" stdset="0">
+            <string>primary</string>
            </property>
           </widget>
          </item>
         </layout>
-       </item>
-      </layout>
-     </widget>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_right">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>23</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>DropArea</class>
+   <extends>QLabel</extends>
+   <header>dropdownarea.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

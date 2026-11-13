@@ -151,14 +151,23 @@ void clsXmlOpt::slot_finishImport(int _key)
     m_mapthrImport.erase(itor);
 }
 
-void clsXmlOpt::loadTs(int _key, const QString &_file)
+void clsXmlOpt::clearTsData()
 {
+    std::lock_guard<std::mutex> g(mtxTrans);
     m_mapWordData.clear();
     m_mapEmptyWordData.clear();
+    m_setLangs.clear();
+}
+
+void clsXmlOpt::loadTs(int _key, const QString &_file)
+{
     qDebug()<<"clsXmlOpt::loadTs _file:"<<_file;
     QFileInfo ts(_file);
     QString lang = ts.baseName().right(2).toUpper();
-    m_setLangs.insert(lang);
+    {
+        std::lock_guard<std::mutex> g(mtxTrans);
+        m_setLangs.insert(lang);
+    }
     QFile file(_file);
     if (!file.open(QFileDevice::ReadOnly)) {
         qDebug()<<"文件打开失败！";

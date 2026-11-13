@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     clsexcelopt.cpp \
     clsxmlopt.cpp \
+    dropdownarea.cpp \
     formprogressbar.cpp \
     main.cpp \
     mainwindow.cpp
@@ -25,12 +26,16 @@ SOURCES += \
 HEADERS += \
     clsexcelopt.h \
     clsxmlopt.h \
+    dropdownarea.h \
     formprogressbar.h \
     mainwindow.h
 
 FORMS += \
     formprogressbar.ui \
     mainwindow.ui
+
+RESOURCES += \
+    resources.qrc
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -50,9 +55,12 @@ CONFIG(debug, debug|release){
 }
 else{
     TARGET = langImport
-    QMAKE_CXXFLAGS_RELEASE = -Od -ZI -MD
-    QMAKE_LFLAGS_RELEASE = /DEBUG
     DESTDIR = $$PWD/../bin/release
+    # 仅供 MSVC 调试 Release 使用，MinGW 不支持这些参数
+    msvc{
+        QMAKE_CXXFLAGS_RELEASE = -Od -ZI -MD
+        QMAKE_LFLAGS_RELEASE = /DEBUG
+    }
 }
 
 VERSION = 0.0.1.0
